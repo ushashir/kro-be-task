@@ -4,7 +4,7 @@
 ## How to setup Backend
 - Clone the repo with `git clone <repo url>`
 - Set up or connect with Postgress database
-- Run `yarn start:dev` to start development server on local host `4002`
+- Run `yarn start:dev` to start development server on local host `4001`
 
 # Task Requirement Details
 

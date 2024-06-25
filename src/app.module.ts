@@ -9,6 +9,8 @@ import appConfig from "./app.config";
 import { UserController } from "./user/user.controller";
 import { APP_GUARD } from "@nestjs/core";
 import { JwtGuard } from "./auth/guards/jwt.guard";
+import { TransactionModule } from "./transaction/transaction.module";
+import { TransactionController } from "./transaction/transaction.controller";
 
 @Global()
 @Module({
@@ -16,8 +18,9 @@ import { JwtGuard } from "./auth/guards/jwt.guard";
     ConfigModule.forRoot({ isGlobal: true, load: [appConfig] }),
     AuthModule,
     UserModule,
+    TransactionModule,
   ],
-  controllers: [AppController, UserController],
+  controllers: [AppController, UserController, TransactionController],
   providers: [
     AppService,
     {
@@ -26,6 +29,6 @@ import { JwtGuard } from "./auth/guards/jwt.guard";
     },
     AppUtilities,
   ],
-  exports: [AuthModule, AppUtilities, UserModule],
+  exports: [AuthModule, AppUtilities, UserModule, TransactionModule],
 })
 export class AppModule {}
