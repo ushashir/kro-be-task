@@ -6,7 +6,6 @@
 - Set up or connect with Postgress database
 - Run `yarn start:dev` to start development server on local host `4002`
 
-
 # Task Requirement Details
 
 ## Take-Home Task for Kro
@@ -120,5 +119,6 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
-
 Nest is [MIT licensed](LICENSE).
+
+
