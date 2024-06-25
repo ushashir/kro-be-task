@@ -1,26 +1,32 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import {
-  Prisma as Prisma,
-  PrismaClient as PrismaClient,
-  User,
-} from "@prisma/client";
+import { Prisma, PrismaClient, User } from "@prisma/client";
 import { CrudService } from "../common/database/crud.service";
-import moment from "moment";
 import { AppUtilities } from "../app.utilities";
+import moment from "moment";
+import { TransactionMapType } from "./transaction.maptype";
 import {
-  GetUsersFilterDto,
-  MapUserOrderByToValue,
-} from "./dto/get-user-filter.dto";
-import { UserMapType } from "./user.mapetype";
+  GetTransactionFilterDto,
+  MapTransactionByToValue,
+} from "./dto/get-transactions-filter.dto";
 
 @Injectable()
-export class UserService extends CrudService<Prisma.UserDelegate, UserMapType> {
-  constructor(private prismaClient: PrismaClient) {
-    super(prismaClient.user);
+export class TransactionService extends CrudService<
+  Prisma.TransactionDelegate,
+  TransactionMapType
+> {
+  constructor(private prisma: PrismaClient) {
+    super(prisma.transaction);
   }
 
-  async getAll(
-    { page, size, orderBy, cursor, direction, ...filters }: GetUsersFilterDto,
+  async getAllTransactions(
+    {
+      page,
+      size,
+      orderBy,
+      cursor,
+      direction,
+      ...filters
+    }: GetTransactionFilterDto,
     req: User
   ) {
     const parseSplittedTermsQuery = (term: string) => {
@@ -86,12 +92,13 @@ export class UserService extends CrudService<Prisma.UserDelegate, UserMapType> {
       },
     ]);
 
-    const args: Prisma.UserFindManyArgs = {
+    const args: Prisma.TransactionFindManyArgs = {
       where: {
         ...parsedQueryFilters,
+        status: true,
       },
       include: {
-        transactions: true,
+        user: { select: { name: true } },
       },
     };
 
@@ -103,18 +110,17 @@ export class UserService extends CrudService<Prisma.UserDelegate, UserMapType> {
       orderBy:
         orderBy &&
         AppUtilities.unflatten({
-          [MapUserOrderByToValue[orderBy]]: direction,
+          [MapTransactionByToValue[orderBy]]: direction,
         }),
     });
   }
 
-  async getOne(id: string, req: User) {
-    const dto: Prisma.UserFindFirstArgs = {
-      where: { id },
+  async getSingleTransaction(id: string) {
+    return this.prisma.transaction.findFirstOrThrow({
+      where: { id, status: true },
       include: {
-        transactions: true,
+        user: true,
       },
-    };
-    return await this.findFirstOrThrow(dto);
+    });
   }
 }

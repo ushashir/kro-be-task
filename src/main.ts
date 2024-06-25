@@ -26,14 +26,14 @@ async function bootstrap() {
 
   const initSwagger = (app: INestApplication, serverUrl: string) => {
     const config = new DocumentBuilder()
-      .setTitle("Garage Mobility Task API Documentation")
+      .setTitle("Kro backend Task API Documentation")
       .setDescription(
-        "This task is done as part of recruitment process for Garage Mobility. This API documentation provides a detailed guide on how to interact with the RESTful API."
+        "This task is done as part of recruitment process for Kro. This API documentation provides a detailed guide on how to interact with the RESTful API."
       )
       .setVersion("1.0")
       .addServer(serverUrl)
       .addBearerAuth()
-      .addTag("Garage Mobility RESTful API Documentation")
+      .addTag("Kro RESTful API Documentation")
       .build();
     const document = SwaggerModule.createDocument(app, config);
 
