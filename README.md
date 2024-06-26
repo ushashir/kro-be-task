@@ -3,8 +3,15 @@
 
 ## How to setup Backend
 - Clone the repo with `git clone <repo url>`
+- Run `yarn` to install all the packages 
+- Run `yarn prisma:generate` to generate Prisma
 - Set up or connect with Postgress database
-- Run `yarn start:dev` to start development server on local host `4001`
+- Run `yarn db.migration:create` to apply create migration
+- Run `yarn db.migration.apply` to apply migration to database
+- Run `yarn start:dev` to start development server on local host `4001` or any other port of your choice
+- Register a user with email and password using the register endpoint.
+- Get userId of the registered user and manually replace it with the userId in the seed data located in `src/commom/database/seed-data/transactions.seed.ts` 
+- login using your email and password, go to `apa/transactions` endpoint to view all transactions by the registered user.
 
 # Task Requirement Details
 

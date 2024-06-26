@@ -10,9 +10,6 @@ import {
 import crypto from "node:crypto";
 import axios from "axios";
 import bcrypt from "bcrypt";
-// import { isNumberString } from 'class-validator';
-// import Base64 from 'crypto-js/enc-base64';
-// import sha256 from 'crypto-js/sha256';
 import { PhoneNumberUtil } from "google-libphonenumber";
 import _ from "lodash";
 import moment from "moment";
@@ -34,7 +31,7 @@ const CUSTOM_CHARS =
 export class AppUtilities {
   public static async generatePdfFromUrl(
     url: string,
-    options?: GeneratePdfOptions,
+    options?: GeneratePdfOptions
   ): Promise<Buffer> {
     // if (Array.isArray(url)) {
     //   return Promise.all(
@@ -46,7 +43,7 @@ export class AppUtilities {
 
   public static async generatePdfFromHtml(
     html: string,
-    options?: GeneratePdfOptions,
+    options?: GeneratePdfOptions
   ): Promise<Buffer> {
     // if (Array.isArray(html)) {
     //   return Promise.all(
@@ -93,14 +90,14 @@ export class AppUtilities {
 
   public static encode(
     data: string,
-    encoding: BufferEncoding = "base64",
+    encoding: BufferEncoding = "base64"
   ): string {
     return Buffer.from(data).toString(encoding);
   }
 
   public static decode(
     data: string,
-    encoding: BufferEncoding = "base64",
+    encoding: BufferEncoding = "base64"
   ): string {
     return Buffer.from(data, encoding).toString();
   }
@@ -117,7 +114,7 @@ export class AppUtilities {
 
   public static getClientAppUrl(
     uri?: string,
-    query?: Record<string, string | number>,
+    query?: Record<string, string | number>
   ): string {
     const url = new URL(uri ?? "", process.env.APP_CLIENT_URL);
     !!query &&
@@ -135,7 +132,7 @@ export class AppUtilities {
     conceptId: string,
     partOf?: string,
     baseConceptId?: string,
-    extras?: T,
+    extras?: T
   ) => {
     const concept: ISnomedctConcept =
       await AppUtilities.fetchConceptDetails(conceptId);
@@ -163,9 +160,9 @@ export class AppUtilities {
             sourceId,
             conceptId,
             baseConceptId,
-            extras,
-          ),
-        ),
+            extras
+          )
+        )
       );
     }
 
@@ -227,7 +224,7 @@ export class AppUtilities {
         console.error(message);
         if (!!message && message.toLocaleLowerCase().includes("arg")) {
           return new BadRequestException(
-            "Invalid/Unknown field was found in the data set!",
+            "Invalid/Unknown field was found in the data set!"
           );
         } else {
           return error;
@@ -243,7 +240,7 @@ export class AppUtilities {
 
   public static async validatePassword(
     password: string,
-    hashedPassword: string,
+    hashedPassword: string
   ) {
     return bcrypt.compare(password, hashedPassword);
   }
@@ -257,7 +254,7 @@ export class AppUtilities {
 
   public static isAuthGroupAuthorized(
     sessionAuthGroups: string[],
-    tokenAuthGroups: string[],
+    tokenAuthGroups: string[]
   ) {
     let groupAuthorized = false;
     for (const groupAuth of sessionAuthGroups) {
@@ -322,7 +319,7 @@ export class AppUtilities {
   public static removeSensitiveData(
     data: any,
     deleteKeys: any,
-    remove?: boolean,
+    remove?: boolean
   ) {
     if (typeof data != "object") return; // if data not object
     if (!data) return; // null object
@@ -341,13 +338,13 @@ export class AppUtilities {
     data: string,
     algorithm: string,
     key: string,
-    iv: string,
+    iv: string
   ) {
     try {
       const cipher = crypto.createCipheriv(
         algorithm,
         Buffer.from(key),
-        Buffer.from(iv),
+        Buffer.from(iv)
       );
       let encrypted = cipher.update(data);
       encrypted = Buffer.concat([encrypted, cipher.final()]);
@@ -361,13 +358,13 @@ export class AppUtilities {
     data: string,
     algorithm: string,
     key: string,
-    iv: string,
+    iv: string
   ) {
     try {
       const decipher = crypto.createDecipheriv(
         algorithm,
         Buffer.from(key),
-        Buffer.from(iv),
+        Buffer.from(iv)
       );
       let decrypted = decipher.update(Buffer.from(data, "hex"));
       decrypted = Buffer.concat([decrypted, decipher.final()]);
@@ -414,7 +411,7 @@ export class AppUtilities {
   }
 
   private static fetchConceptDetails = async (
-    id: string,
+    id: string
   ): Promise<ISnomedctConcept> => {
     const snowstormBaseURL = process.env.SNOWSTORM_BASE_URL;
     const snomedctBranch = process.env.SNOMEDCT_BRANCH;
@@ -431,7 +428,7 @@ export class AppUtilities {
   };
 
   private static fetchConceptInboundRelationships = async (
-    id: string,
+    id: string
   ): Promise<ISnomedctInboundRelationship[]> => {
     const snowstormBaseURL = process.env.SNOWSTORM_BASE_URL;
     const snomedctBranch = process.env.SNOMEDCT_BRANCH;
@@ -444,7 +441,7 @@ export class AppUtilities {
 
     return axios
       .get(
-        `${snowstormBaseURL}/${snomedctBranch}/concepts/${id}/inbound-relationships`,
+        `${snowstormBaseURL}/${snomedctBranch}/concepts/${id}/inbound-relationships`
       )
       .then((data) => data.data?.inboundRelationships || []);
   };
