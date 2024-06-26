@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "TransactionType" AS ENUM ('Deposit', 'Withdrawal');
+CREATE TYPE "TransactionType" AS ENUM ('Deposit', 'Debit', 'Opening');
 
 -- CreateTable
 CREATE TABLE "user" (
@@ -22,7 +22,7 @@ CREATE TABLE "transaction" (
     "userId" UUID NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "balance" DOUBLE PRECISION NOT NULL DEFAULT 0,
-    "transactionType" "TransactionType" NOT NULL,
+    "type" "TransactionType" NOT NULL,
     "description" TEXT,
     "status" BOOLEAN NOT NULL DEFAULT true,
     "createdAt" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -37,7 +37,7 @@ CREATE TABLE "transaction" (
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "transaction_userId_amount_balance_transactionType_descripti_key" ON "transaction"("userId", "amount", "balance", "transactionType", "description", "status", "createdAt", "createdBy");
+CREATE UNIQUE INDEX "transaction_userId_amount_balance_type_description_status_c_key" ON "transaction"("userId", "amount", "balance", "type", "description", "status", "createdAt", "createdBy");
 
 -- AddForeignKey
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION;
