@@ -1,4 +1,5 @@
 export enum TransactionType {
   Deposit = "Deposit",
-  Withdrawal = "Withdrawal",
+  Debit = "Debit",
+  Opening = "Opening",
 }

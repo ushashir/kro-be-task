@@ -24,7 +24,6 @@
     "prisma:generate": "prisma generate --schema ./src/common/prisma/schema.prisma",
     "db.seed": "ts-node ./src/common/prisma/seed-base.ts",
     "db.seed.runner": "ts-node ./src/common/prisma/seed-runner.ts",
-    "db.seed.runner:clients": "ts-node ./src/common/prisma/seed-runner-tenant.ts",
     "db.migration:create": "npx prisma migrate dev --create-only --schema=./src/common/prisma/schema.prisma",
     "db.migration.apply": "npx prisma migrate deploy --schema=./src/common/prisma/schema.prisma",
     "db.migration.push": "npx prisma db pull --schema=./src/common/prisma/schema.prisma"

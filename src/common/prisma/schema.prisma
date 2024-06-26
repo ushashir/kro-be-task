@@ -17,7 +17,8 @@ datasource db {
 
 enum TransactionType {
   Deposit
-  Withdrawal
+  Debit
+  Opening
 }
 
 model User {
@@ -36,19 +37,19 @@ model User {
 }
 
 model Transaction {
-  id              String          @id @default(uuid()) @db.Uuid
-  userId          String          @db.Uuid
-  amount          Float           @default(0) @db.DoublePrecision()
-  balance         Float           @default(0) @db.DoublePrecision()
-  transactionType TransactionType
-  description     String?         @db.Text
-  status          Boolean         @default(true) @db.Boolean
-  createdAt       DateTime        @default(now()) @db.Timestamptz(6)
-  createdBy       String?         @db.Uuid
-  updatedAt       DateTime        @default(now()) @updatedAt @db.Timestamptz(6)
-  updatedBy       String?         @db.Uuid
-  user            User            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id          String          @id @default(uuid()) @db.Uuid
+  userId      String          @db.Uuid
+  amount      Float           @default(0) @db.DoublePrecision()
+  balance     Float           @default(0) @db.DoublePrecision()
+  type        TransactionType
+  description String?         @db.Text
+  status      Boolean         @default(true) @db.Boolean
+  createdAt   DateTime        @default(now()) @db.Timestamptz(6)
+  createdBy   String?         @db.Uuid
+  updatedAt   DateTime        @default(now()) @updatedAt @db.Timestamptz(6)
+  updatedBy   String?         @db.Uuid
+  user        User            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
-  @@unique([userId, amount, balance, transactionType, description, status, createdAt, createdBy])
+  @@unique([userId, amount, balance, type, description, status, createdAt, createdBy])
   @@map("transaction")
 }
