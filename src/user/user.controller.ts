@@ -10,7 +10,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UserService } from "./user.service";
 import { GetUsersFilterDto } from "./dto/get-user-filter.dto";
 import { User } from "@prisma/client";
-import { Public } from "src/auth/decorators/public.decorator";
+import { Public } from "../auth/decorators/public.decorator";
 
 @ApiBearerAuth()
 @ApiTags("Users")

@@ -1,18 +1,16 @@
 import {
   Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
   Post,
   Req,
-  UnauthorizedException,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { PrismaClient, User } from "@prisma/client";
 import { Public } from "../auth/decorators/public.decorator";
 import { LoginDto } from "./dto/auth-credential.dto";
-import { RegisterUserDto } from "./dto/signup.dto";
+import { RegisterUserDto } from "./dto/register.dto";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 @ApiBearerAuth()
@@ -21,7 +19,7 @@ import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private prisma: PrismaClient,
+    private prisma: PrismaClient
   ) {}
 
   @Public()
