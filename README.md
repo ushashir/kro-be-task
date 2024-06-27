@@ -9,6 +9,7 @@
 - Run `yarn db.migration:create` to apply create migration
 - Run `yarn db.migration.apply` to apply migration to database
 - Run `yarn start:dev` to start development server on local host `4001` or any other port of your choice
+- Run `yarn test` to run unit test
 - Register a user with email and password using the register endpoint.
 - `Swagger API ducumentation` can be assessed at `<base url>/swagger` e.g `http://localhost:4002/swagger`
 - Get userId of the registered user and manually replace it with the userId in the seed data located in `src/commom/database/seed-data/transactions.seed.ts` 
