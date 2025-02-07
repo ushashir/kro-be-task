@@ -15,13 +15,7 @@
 - Get userId of the registered user and manually replace it with the userId in the seed data located in `src/commom/database/seed-data/transactions.seed.ts` 
 - login using your email and password, go to `apa/transactions` endpoint to view all transactions by the registered user.
 
-# Task Requirement Details
-
-## Take-Home Task for Kro
-### Overview
-Please complete this task; It simulates a basic flow in a typical fintech app, so super relevant for what you’ll be doing day-to-day.
-
-###  Description
+#  Description
 You’re going to create an app that allows users to sign up (email + PW only), log in, and view a dashboard of financial transactions for that specific user. The backend should be built with Node.js.
 Requirements
 
