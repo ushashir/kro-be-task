@@ -1,6 +1,3 @@
-## About
-- This is a take home task as part of recruitment process for Kro
-
 ## How to setup Backend
 - Clone the repo with `git clone <repo url>`
 - Run `yarn` to install all the packages 
